@@ -6,5 +6,4 @@ dependencies:
   - jupyter
   - jupyterlab
   - rise
-  - go
 
