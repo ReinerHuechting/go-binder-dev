@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export GOPATH=~/go
+export GOBIN=$GOPATH/bin
+export GOSRC=$GOPATH/src
+export GOROOT=~/tools/go
+export PATH=$GOBIN:$GOROOT/bin:$PATH
+
+exec $@

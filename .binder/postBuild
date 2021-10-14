@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Setup environment
+BASEPATH=$PWD
+TOOLSPATH=$BASEPATH/tools
+CONDA_ENVPATH=/srv/conda/envs/notebook
+
+export GOPATH=$BASEPATH/go
+export GOBIN=$GOPATH/bin
+export GOSRC=$GOPATH/src
+export GOROOT=$TOOLSPATH/go
+export PATH=$GOBIN:$GOROOT/bin:$PATH
+JUPYTER_PATH=$CONDA_ENVPATH/share/jupyter
+
+mkdir -p \
+  $GOPATH \
+  $GOBIN \
+  $GOSRC \
+  $TOOLSPATH
+
+ENVVARSFILE=.bashrc
+echo "export GOPATH=$GOPATH" >> $ENVVARSFILE
+echo "export GOBIN=$GOSRC" >> $ENVVARSFILE
+echo "export GOSRC=$GOBIN" >> $ENVVARSFILE
+echo "export GOROOT=$GOROOT" >> $ENVVARSFILE
+echo "export PATH=$GOBIN:$TOOLSPATH/go/bin:$PATH" >> $ENVVARSFILE
+
+# Install Go
+#VERSION=1.17.2
+#OS=linux
+#ARCH=amd64
+#ARCHIVE=go$VERSION.$OS-$ARCH.tar.gz
+#wget --quiet https://dl.google.com/go/$ARCHIVE
+#tar -C $TOOLSPATH -xzf $ARCHIVE
+#rm $ARCHIVE
+
+# Install gophernotes
+go get github.com/gopherdata/gophernotes
+mkdir -p $JUPYTER_PATH/kernels/gophernotes
+cp $GOSRC/github.com/gopherdata/gophernotes/kernel/* $JUPYTER_PATH/kernels/gophernotes
+
