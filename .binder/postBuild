@@ -5,18 +5,18 @@ BASEPATH=$PWD
 TOOLSPATH=$BASEPATH/tools
 CONDA_ENVPATH=/srv/conda/envs/notebook
 
-export GOPATH=$BASEPATH/go
-export GOBIN=$GOPATH/bin
-export GOSRC=$GOPATH/src
+#export GOPATH=$BASEPATH/go
+export GOBIN=$(go env GOPATH)/bin
+#export GOSRC=$GOPATH/src
 #export GOROOT=$TOOLSPATH/go
-export PATH=$GOBIN:$GOROOT/bin:$PATH
-JUPYTER_PATH=$CONDA_ENVPATH/share/jupyter
+export PATH=$GOBIN:$PATH
+#JUPYTER_PATH=$CONDA_ENVPATH/.local/share/jupyter
 
 mkdir -p \
   $GOPATH \
   $GOBIN \
   $GOSRC \
-  $GOROOT \
+  #$GOROOT \
   $TOOLSPATH
 
 ENVVARSFILE=.bashrc
@@ -36,7 +36,9 @@ echo "export PATH=$GOBIN:$TOOLSPATH/go/bin:$PATH" >> $ENVVARSFILE
 #rm $ARCHIVE
 
 # Install gophernotes
-go get github.com/gopherdata/gophernotes
-mkdir -p $JUPYTER_PATH/kernels/gophernotes
-cp $GOSRC/github.com/gopherdata/gophernotes/kernel/* $JUPYTER_PATH/kernels/gophernotes
-
+env GO111MODULE=on go get github.com/gopherdata/gophernotes
+mkdir -p ~/.local/share/jupyter/kernels/gophernotes
+cd ~/.local/share/jupyter/kernels/gophernotes
+cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.3/kernel/*  "."
+chmod +w ./kernel.json # in case copied kernel.json has no write permission
+sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json
