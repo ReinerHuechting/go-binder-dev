@@ -3,7 +3,6 @@
 # Setup environment
 BASEPATH=$PWD
 TOOLSPATH=$BASEPATH/tools
-CONDA_ENVPATH=/srv/conda/envs/notebook
 
 mkdir -p $TOOLSPATH
 
@@ -19,10 +18,6 @@ rm $ARCHIVE
 export PATH=$TOOLSPATH/go/bin:$PATH
 export GOBIN=$(go env GOPATH)/bin
 export PATH=$GOBIN:$PATH
-
-#export GOPATH=$BASEPATH/go
-#export GOROOT=$TOOLSPATH/go
-#JUPYTER_PATH=$CONDA_ENVPATH/.local/share/jupyter
 
 ENVVARSFILE=.bashrc
 echo "export PATH=$GOBIN:$TOOLSPATH/go/bin:$PATH" >> $ENVVARSFILE
