@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd workspace
+git clone https://github.com/wwi21ama-prog/go-intro.git
+
+exec "$@"
