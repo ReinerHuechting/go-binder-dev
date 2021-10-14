@@ -16,6 +16,7 @@ mkdir -p \
   $GOPATH \
   $GOBIN \
   $GOSRC \
+  $GOROOT \
   $TOOLSPATH
 
 ENVVARSFILE=.bashrc
