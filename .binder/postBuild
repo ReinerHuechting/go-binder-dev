@@ -7,7 +7,6 @@ CONDA_ENVPATH=/srv/conda/envs/notebook
 
 #export GOPATH=$BASEPATH/go
 export GOBIN=$(go env GOPATH)/bin
-#export GOSRC=$GOPATH/src
 #export GOROOT=$TOOLSPATH/go
 export PATH=$GOBIN:$PATH
 #JUPYTER_PATH=$CONDA_ENVPATH/.local/share/jupyter
@@ -15,15 +14,9 @@ export PATH=$GOBIN:$PATH
 mkdir -p \
   $GOPATH \
   $GOBIN \
-  $GOSRC \
-  #$GOROOT \
   $TOOLSPATH
 
 ENVVARSFILE=.bashrc
-echo "export GOPATH=$GOPATH" >> $ENVVARSFILE
-echo "export GOBIN=$GOSRC" >> $ENVVARSFILE
-echo "export GOSRC=$GOBIN" >> $ENVVARSFILE
-#echo "export GOROOT=$GOROOT" >> $ENVVARSFILE
 echo "export PATH=$GOBIN:$TOOLSPATH/go/bin:$PATH" >> $ENVVARSFILE
 
 # Install Go
